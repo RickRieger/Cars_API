@@ -21,7 +21,7 @@ def cars_list(request):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def cars_detail(request, pk): 
   print(request.data)
   car = get_object_or_404(Car, pk=pk) 
@@ -34,3 +34,6 @@ def cars_detail(request, pk):
     serializer.save()
     print('==========here=========')
     return Response(serializer.data)
+  elif request.method == 'DELETE':
+      car.delete()
+      return Response(status=status.HTTP_204_NO_CONTENT)
